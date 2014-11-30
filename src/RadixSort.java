@@ -1,6 +1,7 @@
-public class RadixSort<E> implements Sorter<E> {
+public class RadixSort extends Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

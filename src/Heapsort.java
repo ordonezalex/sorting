@@ -1,6 +1,7 @@
-public class Heapsort<E> implements Sorter<E> {
+public class Heapsort implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

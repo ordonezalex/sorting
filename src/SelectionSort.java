@@ -1,6 +1,7 @@
-public class SelectionSort<E> implements Sorter<E> {
+public class SelectionSort implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

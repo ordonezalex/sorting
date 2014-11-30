@@ -1,6 +1,7 @@
-public class ExchangeSort<E> implements Sorter<E> {
+public class ExchangeSort implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

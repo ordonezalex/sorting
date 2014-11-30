@@ -1,6 +1,7 @@
-public class BinaryInsertSort<E> implements Sorter<E> {
+public class BinaryInsertSort implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

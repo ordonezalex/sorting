@@ -1,7 +1,7 @@
-public class InsertSort<E> implements Sorter<E> {
+public class InsertSort implements Sorter {
 
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

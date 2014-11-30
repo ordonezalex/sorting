@@ -1,6 +1,7 @@
-public class Quicksort2<E> implements Sorter<E> {
+public class Quicksort2 implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }

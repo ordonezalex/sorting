@@ -1,6 +1,7 @@
-public class Mergesort2<E> implements Sorter<E> {
+public class Mergesort2 implements Sorter {
+
     @Override
-    public E[] sort(E[] unsorted) {
+    public <E> E[] sort(E[] unsorted) {
 
         return unsorted;
     }
