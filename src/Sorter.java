@@ -1,3 +1,3 @@
-public interface Sorter<E> {
-    public E[] sort(E[] unsorted);
+public interface Sorter {
+    public <E> E[] sort(E[] unsorted);
 }
