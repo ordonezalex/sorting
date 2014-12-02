@@ -1,27 +1,29 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.LinkedList;
-public class RadixSort extends Sorter {
+
+public class RadixSort implements Sorter {
 
     @Override
-    public <E> E[] sort(E[] unsorted) {
-        List<E> intermediates;
-        E[] limits = getLimits(unsorted);
+    public int[] sort(int[] unsorted) {
+
+        List<Integer> intermediates;
+        int[] limits = getLimits(unsorted);
         unsorted = rescale(unsorted, limits[1]);
 
         for (int i = 1; i <= limits[2]; i++) {
-            @SuppressWarnings("unchecked")
-            Queue<E> bucket[] = new Queue[10];
+            Queue<Integer> bucket[] = new Queue[10];
             for (int j = 0; j < unsorted.length; j++) {
-                E value = unsorted[j];
-                E digit = (int) (value / Math.pow(10, i - 1) % 10);
+                int value = unsorted[j];
+                int digit = (int) (value / Math.pow(10, i - 1) % 10);
                 if (bucket[digit] == null) {
-                    bucket[digit] = new LinkedList<E>();
+                    bucket[digit] = new LinkedList<Integer>();
                 }
                 bucket[digit].add(value);
             }
 
-            intermediates = new ArrayList<>();
+            intermediates = new ArrayList<Integer>();
             for (int j = 0; j < 10; j++) {
                 if (bucket[j] != null) {
                     while (bucket[j].size() > 0) {
@@ -32,8 +34,8 @@ public class RadixSort extends Sorter {
                 }
             }
 
-            for (int i = 0; i < intermediates.size(); i++) {
-                unsorted[i] = intermediates.get(i);
+            for (int j = 0; j < intermediates.size(); j++) {
+                unsorted[j] = intermediates.get(j);
             }
         }
 
@@ -42,7 +44,7 @@ public class RadixSort extends Sorter {
         return unsorted;
     }
 
-    private static <E> E[] rescale(E[] array, E size) {
+    private static int[] rescale(int[] array, int size) {
 
         for (int i = 0; i < array.length; i++) {
             array[i] -= size;
@@ -51,9 +53,9 @@ public class RadixSort extends Sorter {
         return array;
     }
 
-    private static <E> E[] getLimits(E[] array) {
+    private static int[] getLimits(int[] array) {
 
-        E[] limits = new E[3];
+        int[] limits = new int[3];
 
         for (int i_ = 0; i_ < array.length; ++i_) {
             limits[0] = Math.max(limits[0], array[i_]);

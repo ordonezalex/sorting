@@ -1,9 +1,9 @@
 public class Quicksort implements Sorter {
 
-    private E[] unsorted;
+    private int[] unsorted;
 
     @Override
-    public <E> E[] sort(E[] array) {
+    public int[] sort(int[] array) {
 
         unsorted = array;
         int left = 0;
