@@ -1,87 +1,50 @@
-import java.util.Arrays;
-
 public class Quicksort implements Sorter {
-
-    private int[] data;
-
     @Override
     public int[] sort(int[] unsorted) {
 
-        this.data = unsorted;
-        quickSort(0, this.data.length - 1);
+        quicksortRecursive(unsorted, 0, unsorted.length - 1);
 
-        return this.data;
+        return unsorted;
     }
 
-    private void quickSort(int low, int high) {
+    private void quicksortRecursive(int[] unsorted, int low, int high) {
+        int index = partition(unsorted, low, high);
 
-        if (high > low) {
-            int pivot = data[high];
+        // Recursively call quicksort with left part of the partitioned array
+        if (low < index - 1) {
+            quicksortRecursive(unsorted, low, index - 1);
+        }
 
-            partition(low, high, pivot);
-
-            System.out.println("Sorting from " + low + " to " + (pivot - 1));
-            quickSort(low, pivot - 1);
-
-            System.out.println("Sorting from " + (pivot + 1) + " to " + high);
-            quickSort(pivot + 1, high);
-        } else {
-            System.out.println("High is not greater than low");
+        // Recursively call quick sort with right part of the partitioned array
+        if (high > index) {
+            quicksortRecursive(unsorted, index, high);
         }
     }
 
-    private int partition(int low, int high, int pivot) {
+    private int partition(int[] unsorted, int low, int high) {
+        int pivot = unsorted[low]; // taking first element as pivot
 
-        // First item is pivot
-        int pivotItem = this.data[low];
+        while (low <= high) {
+            //searching number which is greater than pivot, bottom up
+            while (unsorted[low] < pivot) {
+                low++;
+            }
+            //searching number which is less than pivot, top down
+            while (unsorted[high] > pivot) {
+                high--;
+            }
 
-        System.out.println("Pivot is " + low);
-        System.out.println("Pivot item is " + pivotItem);
+            // swap the values
+            if (low <= high) {
+                int tmp = unsorted[low];
+                unsorted[low] = unsorted[high];
+                unsorted[high] = tmp;
 
-        int temp;
-        int lowIndex = low;
-
-        System.out.println("Comparing from [" + (lowIndex + 1) + " to " + high + "]");
-
-        for (int i = lowIndex + 1; i <= high; i++) {
-            System.out.println("Comparing items at " + lowIndex + " and " + i);
-            System.out.println("Comparing items " + this.data[lowIndex] + " and " + this.data[i]);
-
-            if (this.data[i] < pivotItem) {
-                System.out.println("Datum at " + i + " is less than pivot item");
-
-                System.out.println("Swapping items at " + i + " and " + lowIndex);
-                System.out.println("Swapping " + this.data[i] + " and " + this.data[lowIndex]);
-
-                temp = this.data[i];
-                this.data[i] = this.data[lowIndex];
-                this.data[lowIndex] = temp;
-
-                lowIndex++;
+                //increment left index and decrement right index
+                low++;
+                high--;
             }
         }
-
-        System.out.println("Swapping items at " + low + " and " + lowIndex);
-        System.out.println("Swapping " + this.data[low] + " and " + this.data[lowIndex]);
-
-        temp = this.data[low];
-        this.data[low] = this.data[pivot];
-        this.data[pivot] = temp;
-
-        System.out.println("New pivot is " + pivot);
-
-        return pivot;
-    }
-
-    public static void main(String[] args) {
-
-        Sorter sorter = new Quicksort();
-
-        int[] unsorted = new int[] {3, 4, 5, 2, 1};
-        System.out.println("Unsorted: " + Arrays.toString(unsorted));
-
-        int[] sorted;
-        sorted = sorter.sort(unsorted);
-        System.out.println("Sorted: " + Arrays.toString(sorted));
+        return low;
     }
 }
