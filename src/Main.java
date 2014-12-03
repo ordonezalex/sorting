@@ -66,14 +66,14 @@ public class Main {
         sorter = new Mergesort4();
         unsorted = Main.sort(sorter, unsorted);
 
-        // Sort using Quicksort
-        System.out.println("Using Quicksort");
-        sorter = new Quicksort();
-        unsorted = Main.sort(sorter, unsorted);
-
         // Sort using Quicksort2
         System.out.println("Using Quicksort2");
         sorter = new Quicksort2();
+        unsorted = Main.sort(sorter, unsorted);
+
+        // Sort using Quicksort
+        System.out.println("Using Quicksort");
+        sorter = new Quicksort();
         unsorted = Main.sort(sorter, unsorted);
 
         // Sort using Radix Sort
