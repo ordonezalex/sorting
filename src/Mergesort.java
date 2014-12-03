@@ -6,127 +6,104 @@ public class Mergesort implements Sorter {
     public int[] sort(int[] unsorted) {
 
         if (unsorted.length > 1) {
-            System.out.println("Sorting " + Arrays.toString(unsorted));
+//            System.out.println("Sorting " + Arrays.toString(unsorted));
 
             int bottomLength = (int) Math.floor(unsorted.length / 2);
             int topLength = unsorted.length - bottomLength;
-            int j = 0;
 
+            // Create bottom and top halves
             int[] bottom = new int[bottomLength];
             int[] top = new int[topLength];
 
-            for (int i = 0; i < unsorted.length; i++) {
-                if (i < bottomLength) {
-                    // Copy bottom half of array
-                    bottom[i] = unsorted[i];
-                } else {
-                    // Copy top half of array
-                    top[j] = unsorted[i];
-                    j++;
-                }
-            }
+            // Copy bottom half of array
+            System.arraycopy(unsorted, 0, bottom, 0, bottom.length);
 
-            System.out.println("Bottom is " + Arrays.toString(bottom));
-            System.out.println("Top is " + Arrays.toString(top));
+            // Copy top half of array
+            System.arraycopy(unsorted, bottom.length, top, 0, top.length);
+
+//            System.out.println("Bottom is " + Arrays.toString(bottom));
+//            System.out.println("Top is " + Arrays.toString(top));
 
             bottom = sort(bottom);
             top = sort(top);
 
-            System.out.println("Sorted bottom is " + Arrays.toString(bottom));
-            System.out.println("Sorted top is " + Arrays.toString(top));
+//            System.out.println("Sorted bottom is " + Arrays.toString(bottom));
+//            System.out.println("Sorted top is " + Arrays.toString(top));
 
-            unsorted = merge(bottomLength, topLength, bottom, top);
+            unsorted = merge(bottom, top);
         }
 
         return unsorted;
     }
 
-//    private void mergeSort(int[] unsorted, int size) {
-//
-//        if (unsorted.length > 1) {
-//            int h = (int) Math.floor(unsorted.length / 2);
-//            int m = unsorted.length - h;
-//            int[] bottom = new int[h];
-//            int[] top = new int[m];
-//
-//            for (int i = 0; i < unsorted.length; i++) {
-//                if (i <= h) {
-//                    bottom[i] = unsorted[i];
-//                } else {
-//                    top[i] = unsorted[i];
-//                }
-//            }
-//        }
-//    }
+    private int[] merge(int[] bottom, int[] top) {
 
-    private int[] merge(int bottomLength, int topLength, int[] bottom, int[] top) {
-
-        System.out.println("Merging bottom " + Arrays.toString(bottom)
-                + " and top " + Arrays.toString(top));
+//        System.out.println("Merging bottom " + Arrays.toString(bottom)
+//                + " and top " + Arrays.toString(top));
 
         int[] merged;
         int bottomIndex, topIndex, mergedIndex;
 
-        merged = new int[bottomLength + topLength];
+        merged = new int[bottom.length + top.length];
         bottomIndex = 0;
         topIndex = 0;
         mergedIndex = 0;
 
-        while (bottomIndex < bottomLength && topIndex < topLength) {
-            if (bottom[bottomIndex] <= top[bottomIndex]) {
+        while (topIndex < bottom.length && mergedIndex < top.length) {
+//            System.out.println("i is " + bottomIndex + " and bottom is " + bottom.length);
+//            System.out.println("j is " + topIndex + " and top is " + top.length);
 
-                merged[mergedIndex] = bottom[bottomIndex];
-                bottomIndex++;
+            if (bottom[topIndex] < top[mergedIndex]) {
+                merged[bottomIndex] = bottom[topIndex];
 
-                System.out.println("First merged is " + Arrays.toString(merged));
+                topIndex++;
+
+//                System.out.println("First merged is " + Arrays.toString(merged));
             } else {
 
-                merged[mergedIndex] = top[topIndex];
-                topIndex++;
+                merged[bottomIndex] = top[mergedIndex];
 
-                System.out.println("First merged is " + Arrays.toString(merged));
+                mergedIndex++;
+
+//                System.out.println("First merged is " + Arrays.toString(merged));
             }
 
-            mergedIndex++;
+            bottomIndex++;
+
+//            System.out.println("i is " + bottomIndex + " and bottom is " + bottom.length);
+//            System.out.println("j is " + topIndex + " and top is " + top.length);
         }
-        System.out.println("Almost done..");
 
         // Copying the rest of the array (either the bottom or the top rest is sorted)
-        // bottomIndex = 0;
-        // topIndex = 0;
-        if (bottomIndex < bottomLength) {
-            // Copying the rest of the top
 
-            while (topIndex < topLength) {
-                System.out.println("Putting " + top[topIndex] + " to " + mergedIndex + " in " + Arrays.toString(merged));
+        // Copying the rest of the bottom
+        while (topIndex < bottom.length) {
+            merged[bottomIndex] = bottom[topIndex];
 
-                merged[mergedIndex] = top[topIndex];
-                topIndex++;
-                mergedIndex++;
+            bottomIndex++;
+            topIndex++;
 
-                System.out.println("New merged is " + Arrays.toString(merged));
-            }
+//            System.out.println("New merged is " + Arrays.toString(merged));
+        }
 
-        } else {
-            // Copying the rest of the bottom
-            while (bottomIndex < bottomLength) {
-                System.out.println("Putting " + bottom[bottomIndex] + " to " + mergedIndex + " in " + Arrays.toString(merged));
+        // Copying the rest of the top
+        while (mergedIndex < top.length) {
+            merged[bottomIndex] = top[mergedIndex];
 
-                merged[mergedIndex] = bottom[bottomIndex];
-                bottomIndex++;
-                mergedIndex++;
+            bottomIndex++;
+            mergedIndex++;
 
-                System.out.println("New merged is " + Arrays.toString(merged));
-            }
+//            System.out.println("New merged is " + Arrays.toString(merged));
         }
 
         return merged;
     }
 
     public static void main(String[] args) {
-        int[] test = {1, 5, 3};
-        Mergesort merge = new Mergesort();
-        int[] sorted = merge.sort(test);
+
+        int[] test = {7, 5, 3, 2, 7, 4, 1, 3};
+        Sorter sorter = new Mergesort();
+        int[] sorted = sorter.sort(test);
 
         System.out.println("Unsorted: " + Arrays.toString(test));
         System.out.println("Sorted: " + Arrays.toString(sorted));
