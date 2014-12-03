@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class InsertSort implements Sorter {
 
     @Override
@@ -16,5 +18,14 @@ public class InsertSort implements Sorter {
         }
 
         return unsorted;
+    }
+
+    public static void main(String[] args) {
+        int[] test = {1, 5, 3};
+        InsertSort merge = new InsertSort();
+        int[] sorted = merge.sort(test);
+
+        System.out.println("Unsorted: " + Arrays.toString(test));
+        System.out.println("Sorted: " + Arrays.toString(sorted));
     }
 }
