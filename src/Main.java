@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
@@ -23,15 +24,110 @@ public class Main {
 
         for (int i = 0; i < TIMES_TO_RUN; i++) {
             // Set up random array of data
+            int[][] unsorted = new int[1][];
+            int[][] sorted;
+
+            // Create arrays to hold unsorted data
+            unsorted[0] = new int[10];
+
+            // Randomly generate large amounts of data for each array
+            for (int k = 0; k < 10; k++) {
+                unsorted[0][k] = rand.nextInt(100);
+            }
+
+            System.out.println("Unsorted is " + Arrays.toString(unsorted[0]));
+
+            // Sort using Binary Insert Sort
+            System.out.println("Using Binary Insert Sort");
+            sorter = new BinaryInsertSort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Exchange Sort
+            System.out.println("Using Exchange Sort");
+            sorter = new ExchangeSort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Heap Sort
+            System.out.println("Using Heap Sort");
+            sorter = new Heapsort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Insert Sort
+            System.out.println("Using Insert Sort");
+            sorter = new InsertSort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Mergesort
+            System.out.println("Using Mergesort");
+            sorter = new Mergesort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Mergesort2
+            System.out.println("Using Mergesort2");
+            sorter = new Mergesort2();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Mergesort4
+            System.out.println("Using Mergesort4");
+            sorter = new Mergesort4();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Quicksort2
+            System.out.println("Using Quicksort2");
+            sorter = new Quicksort2();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Quicksort
+            System.out.println("Using Quicksort");
+            sorter = new Quicksort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Radix Sort
+            System.out.println("Using Radix Sort");
+            sorter = new RadixSort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+
+            // Sort using Selection Sort
+            System.out.println("Using Selection Sort");
+            sorter = new SelectionSort();
+            sorted = Main.sort(sorter, unsorted);
+            System.out.println("Sorted is " + Arrays.toString(sorted[0]));
+        }
+
+        // Sorting beyond this point could take days.
+
+        /*
+         * 1. Create unsorted data of each magnitude (e.g. 1000, 10000, ...)
+         * 2. Sort the data using each Sorter
+         * 3. Repeat for TIMES_TO_RUN
+         *
+         * This is better (more time and code efficient) than:
+         * 1. Create unsorted data of each magnitude (e.g. 1000, 10000, ...)
+         * 2. Sort the data using a Sorter for TIMES_TO_RUN
+         * 3. Repeat for each Sorter
+         */
+        for (int i = 0; i < TIMES_TO_RUN; i++) {
+            // Set up random array of data
             int[][] unsorted = new int[OUTER_ARRAY_SIZE][];
             int[][] sorted;
 
             // Create arrays to hold unsorted data
             for (int j = 1; j <= OUTER_ARRAY_SIZE; j++) {
-                unsorted[j - 1] = new int[INNER_ARRAY_SIZE];
+                System.out.println("Creating array for " + (j - 1) + " of size " + (int) (INNER_ARRAY_SIZE * Math.pow(10, j)));
+                unsorted[j - 1] = new int[(int) (INNER_ARRAY_SIZE * Math.pow(10, j))];
 
                 // Randomly generate large amounts of data for each array
-                for (int k = 0; k < 10; k++) {
+                for (int k = 0; k < INNER_ARRAY_SIZE * j; k++) {
                     unsorted[j - 1][k] = rand.nextInt();
                 }
             }
@@ -91,90 +187,6 @@ public class Main {
             sorter = new SelectionSort();
             sorted = Main.sort(sorter, unsorted);
         }
-
-        // Sorting beyond this point could take days.
-
-        /*
-         * 1. Create unsorted data of each magnitude (e.g. 1000, 10000, ...)
-         * 2. Sort the data using each Sorter
-         * 3. Repeat for TIMES_TO_RUN
-         *
-         * This is better (more time and code efficient) than:
-         * 1. Create unsorted data of each magnitude (e.g. 1000, 10000, ...)
-         * 2. Sort the data using a Sorter for TIMES_TO_RUN
-         * 3. Repeat for each Sorter
-         */
-//        for (int i = 0; i < TIMES_TO_RUN; i++) {
-//            // Set up random array of data
-//            int[][] unsorted = new int[OUTER_ARRAY_SIZE][];
-//            int[][] sorted;
-//
-//            // Create arrays to hold unsorted data
-//            for (int j = 1; j <= OUTER_ARRAY_SIZE; j++) {
-//                System.out.println("Creating array for " + (j - 1) + " of size " + (int) (INNER_ARRAY_SIZE * Math.pow(10, j)));
-//                unsorted[j - 1] = new int[(int) (INNER_ARRAY_SIZE * Math.pow(10, j))];
-//
-//                // Randomly generate large amounts of data for each array
-//                for (int k = 0; k < INNER_ARRAY_SIZE * j; k++) {
-//                    unsorted[j - 1][k] = rand.nextInt();
-//                }
-//            }
-//
-//            // Sort using Binary Insert Sort
-////            System.out.println("Using Binary Insert Sort");
-////            sorter = new BinaryInsertSort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Exchange Sort
-////            System.out.println("Using Exchange Sort");
-////            sorter = new ExchangeSort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Heap Sort
-////            System.out.println("Using Heap Sort");
-////            sorter = new Heapsort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Insert Sort
-//            System.out.println("Using Insert Sort");
-//            sorter = new InsertSort();
-//            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Mergesort
-////            System.out.println("Using Mergesort");
-////            sorter = new Mergesort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Mergesort2
-////            System.out.println("Using Mergesort2");
-////            sorter = new Mergesort2();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Mergesort4
-////            System.out.println("Using Mergesort4");
-////            sorter = new Mergesort4();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Quicksort2
-////            System.out.println("Using Quicksort2");
-////            sorter = new Quicksort2();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Quicksort
-////            System.out.println("Using Quicksort");
-////            sorter = new Quicksort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Radix Sort
-////            System.out.println("Using Radix Sort");
-////            sorter = new RadixSort();
-////            sorted = Main.sort(sorter, unsorted);
-//
-//            // Sort using Selection Sort
-//            System.out.println("Using Selection Sort");
-//            sorter = new SelectionSort();
-//            sorted = Main.sort(sorter, unsorted);
-//        }
     }
 
     private static int[][] sort(Sorter sorter, int[][] unsorted) {
@@ -197,8 +209,9 @@ public class Main {
             sortingDurations[i] += duration;
         }
 
+        // Print average durations
         for (int i = 0; i < unsorted.length; i++) {
-            System.out.println("Data of size " + (int) (INNER_ARRAY_SIZE * Math.pow(10, i)) + " took " + (sortingDurations[i] / TIMES_TO_RUN));
+            System.out.println("On average, sorting " + i + "th array took " + (sortingDurations[i] / TIMES_TO_RUN) + " nanoseconds");
         }
 
         return sorted;
