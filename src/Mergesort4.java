@@ -4,17 +4,17 @@ public class Mergesort4 implements Sorter {
 
     @Override
     public int[] sort(int[] unsorted) {
-        LinkedList toSort = new LinkedList();
+        LinkedList<Node> toSort = new LinkedList<Node>();
         for (int i = 0; i < unsorted.length; i++) {
-            toSort.add(unsorted[i]);
+            toSort.add(new Node(unsorted[i]));
         }
 
         mergesort(toSort.getFirst());
         return unsorted;
     }
 
-    public Node mergesort(Object headOriginal) {
-        Node head = (Node) headOriginal;
+    public Node mergesort(Node headOriginal) {
+        Node head = headOriginal;
         if (head == null || head.next == null)
             return head;
         Node a = head;
