@@ -1,78 +1,39 @@
-import java.util.Arrays;
-
 public class Mergesort2 implements Sorter {
-
-    private int[] data;
 
     @Override
     public int[] sort(int[] unsorted) {
-
-        this.data = unsorted;
-
-        this.mergesort(0, this.data.length - 1);
-
-        return this.data;
+        this.mergesort(unsorted, 0, unsorted.length - 1);
+        return unsorted;
     }
 
-    private void mergesort(int low, int high) {
-
-        int mid;
-
-        if (low < high) {
-            mid = (int) Math.floor((low + high) / 2);
-
-            this.mergesort(low, mid);
-            this.mergesort(mid + 1, high);
-            this.merge(low, mid, high);
+    private void mergesort(int[] unsorted, int lo, int hi) {
+        int low = lo;
+        int high = hi;
+        if (low >= high) {
+            return;
         }
-    }
+        int mid = (low + high) / 2;
 
-    private int[] merge(int low, int mid, int high) {
+        //Partition the list into two lists and sort them recursively
+        this.mergesort(unsorted, low, mid);
+        this.mergesort(unsorted, mid + 1, high);
 
-        int[] merged;
-//        int bottomIndex, topIndex, mergedIndex;
-        int i, j, k;
-
-        merged = new int[low + 1 + high + 1];
-        i = low;
-        j = mid + 1;
-        k = low;
-
-        while (i <= mid && j <= high) {
-            if (this.data[i] < this.data[j]) {
-                merged[k] = this.data[i];
-
-                i++;
+        //Merge the two sorted lists
+        int end_lo = mid;
+        int start_hi = mid + 1;
+        while ((low <= end_lo) && (start_hi <= high)) {
+            if (unsorted[low] < unsorted[start_hi]) {
+                low++;
             } else {
-                merged[k] = this.data[j];
-
-                j++;
+                int T = unsorted[start_hi];
+                for (int k = start_hi - 1; k >= low; k--) {
+                    unsorted[k+1] = unsorted[k];
+                }
+                unsorted[low] = T;
+                low++;
+                end_lo++;
+                start_hi++;
             }
-
-            k++;
         }
-
-        if (i > mid) {
-            // Copying the rest of the bottom
-            System.arraycopy(this.data, j, merged, k, high - k);
-        } else {
-            // Copying the rest of the top
-            System.arraycopy(this.data, i, merged, k, high - k);
-        }
-
-        // Copy the merged array to the data array
-        System.arraycopy(merged, low, this.data, low, high - low);
-
-        return merged;
-    }
-
-    public static void main(String[] args) {
-
-        int[] test = {7, 5, 3, 2, 7, 4, 1, 3};
-        Sorter sorter = new Mergesort2();
-        int[] sorted = sorter.sort(test);
-
-        System.out.println("Unsorted: " + Arrays.toString(test));
-        System.out.println("Sorted: " + Arrays.toString(sorted));
     }
 }
